@@ -1,0 +1,60 @@
+   # /svn location for users
+<Location /svn>
+RubyAddPath /etc/apache2/ruby
+RubyRequire redminesvnauth
+
+     DAV svn
+     SVNParentPath "/repo/svn" 
+     Order deny,allow
+#     Deny from all
+     Allow from localhost
+Allow from all
+     Satisfy any
+
+     AuthType Basic
+     AuthName "Redmine SVN Repository" 
+     AuthBasicAuthoritative Off
+     # write access
+   #  <LimitExcept GET PROPFIND OPTIONS REPORT>
+     <Limit ALL>
+RubyAccessHandler Redminesvnauth.new
+RubyAuthenHandler Redminesvnauth.new
+RubyAuthzHandler Redminesvnauth.new
+       Require valid-user
+	</Limit>
+ #    </LimitExcept>
+
+#RubySafeLevel 0
+  </Location>
+
+
+   # /svn location for users
+<Location /anonsvn>
+RubyAddPath /etc/apache2/ruby
+RubyRequire redminesvnauth
+
+     DAV svn
+     SVNParentPath "/repo/svn" 
+     Order deny,allow
+   #  Deny from all
+     Satisfy any
+
+     AuthType Basic
+     AuthName "Redmine SVN Repository" 
+     AuthBasicAuthoritative Off
+	<LimitExcept GET PROPFIND OPTIONS REPORT>
+		Order deny,allow
+		Deny from all 
+#		Require group nogroup
+#		Satisfy All
+	</LimitExcept>
+     <Limit GET PROPFIND OPTIONS REPORT>
+	RubyAccessHandler Redminesvnanon.new
+	RubyAuthenHandler Redminesvnanon.new
+	RubyAuthzHandler Redminesvnanon.new
+        Require valid-user
+    </Limit>
+
+#RubySafeLevel 0
+  </Location>
+

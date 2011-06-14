@@ -1,0 +1,7 @@
+This script can be used to serve SVN repositories using apache and a Redmine install (http://redmine.org). It expects several roles "Developer" and "Manager" to exist and one user defined field "AnonSvn". It also needs mod_ruby to be available.
+
+This is essentially a backup for a production system and in desperate need of cleanup. If it's useful to you, feel free to use I offer no warranty that it will work (or even not kill your data). By using this software, you agree not to hold anyone but yourself responsible for the effects. If you do use it, feel free to let me know and maybe I'll take the time to write some real documentation. 
+
+(patches welcome)
+
+-Ben (ben@kc2vjw.com)
